@@ -1,0 +1,53 @@
+pkgname=dwm-wolfhechel
+pkgver=r1689.21fab61
+pkgrel=1
+pkgdesc="Fork of suckless dwm"
+url="https://github.com/wolfhechel/dwm.git"
+arch=('i686' 'x86_64')
+license=('MIT')
+depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'rxvt-unicode' 'rofi')
+provides=('dwm')
+conflicts=('dwm')
+source=(
+    config.h
+    drw.c
+    drw.h
+    dwm.1
+    dwm.c
+    util.c
+    util.h
+    config.mk
+    Makefile
+    LICENSE
+    README
+    dwm.desktop
+)
+
+sha1sums=('6571b1d69578ca6a3300d90df129e7cd0fd69d39'
+          'c9e5548a5e17ddad34a86a4183bd77405ab6f198'
+          '3a2561a541689ad41f1e195a631946db6f6cee1d'
+          'fcb56718af585b34ad7d082be1cd1743edfa30cd'
+          '68f4a78355bb953f7baba11f31411fa003e095eb'
+          'fa2d06bbede3c84e95e292e35a0a1438c4f42ea5'
+          'cd8778bfef80985633469bd4fdb415f33cad8e66'
+          '65fa75b3f7f7465876a4288a6aa3ea70cf4d052d'
+          '594221400a81f269eddd57dd86b4073251fb6815'
+          'fc74573a10e20e86d7da8a2d030843f374f7e775'
+          '93cfab1e54ab47b67226ba6ec3d11e773cf98056'
+          '9dc7ba48e3270d0e6273b4f3ca7d22cb1eb1599b')
+
+pkgver() {
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  pwd
+  make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 FREETYPEINC=/usr/include/freetype2
+}
+
+package() {
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+  install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -m644 -D README "$pkgdir/usr/share/doc/$pkgname/README"
+  install -m644 -D "$srcdir/dwm.desktop" "$pkgdir/usr/share/xsessions/dwm.desktop"
+}
