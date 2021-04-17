@@ -8,7 +8,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int barline            = 2;
 static const char *fonts[]          = {
-    "Iosevka:size=13"
+    "Noto Sans Mono:size=13"
 };
 static const char col_dark[] = "#222222";
 static const char col_light[] = "#393939";
@@ -59,7 +59,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
-static const char *dmenucmd[] = { "rofi", "-show", "drun", "-theme", "styles/main", NULL };
+static const char *dmenucmd[] = { "rofi", "-show", NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 
 static const char *playerprev[] = { "playerctl", "previous",   NULL };
@@ -77,7 +77,6 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD("~/.bin/notes") }, 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -111,9 +110,6 @@ static Key keys[] = {
     /* Brightness Controls */
     { 0,              XF86XK_MonBrightnessUp,  spawn,          { .v = brightnessup } },
     { 0,              XF86XK_MonBrightnessDown,spawn,          { .v = brightnessdown } },
-
-    /* Hotkey to power menu */
-    { MODKEY,                       XK_Escape, spawn,          SHCMD("~/.config/utilities/powermenu.sh") },
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
