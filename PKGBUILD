@@ -1,5 +1,5 @@
 pkgname=dwm-wolfhechel
-pkgver=r1695.b35c2eb
+pkgver=r1695.1b578a1
 pkgrel=1
 pkgdesc="Fork of suckless dwm"
 url="https://github.com/wolfhechel/dwm.git"
@@ -23,7 +23,7 @@ source=(
     dwm.desktop
 )
 
-sha1sums=('046dd1673ee54f42784e17d69aaed65567bd2b4b'
+sha1sums=('5683e28760d302aa40f4463b66e0c9102aca93c2'
           'c9e5548a5e17ddad34a86a4183bd77405ab6f198'
           '3a2561a541689ad41f1e195a631946db6f6cee1d'
           'fcb56718af585b34ad7d082be1cd1743edfa30cd'

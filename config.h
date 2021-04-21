@@ -59,7 +59,9 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
-static const char *dmenucmd[] = { "rofi", "-show", NULL };
+#define ROFI_MODE(mode) (const char*[]){ "rofi", "-show", mode, NULL }
+
+static const char *dmenucmd[] = ROFI_MODE("drun");
 static const char *termcmd[]  = { "urxvt", NULL };
 
 static const char *playerprev[] = { "playerctl", "previous",   NULL };
@@ -76,6 +78,8 @@ static const char *brightnessdown[] = { "brightnessctl", "s", "5%-", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = ROFI_MODE("sys") } },
+    { MODKEY|ControlMask,           XK_p,      spawn,          {.v = ROFI_MODE("file-browser") } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -86,7 +90,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY|ControlMask,           XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -98,6 +102,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
+	{ MODKEY|ShiftMask|ControlMask, XK_BackSpace, quit,        {0} },
 
     /* Media controls */
     { 0,              XF86XK_AudioPrev,        spawn,          { .v = playerprev } },
@@ -120,7 +126,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
